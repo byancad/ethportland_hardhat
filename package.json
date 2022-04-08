@@ -9,7 +9,8 @@
     "compile": "npx hardhat compile",
     "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
     "deploy:publish": "npx hardhat run scripts/deploy.ts --network localhost && npx hardhat run scripts/publish.ts",
-    "watch": "npx hardhat run scripts/watch.ts"
+    "watch": "npx hardhat run scripts/watch.ts",
+    "deploy:rinkeby": "npx hardhat run scripts/deploy.ts --network rinkeby"
   },
   "author": "",
   "license": "ISC",

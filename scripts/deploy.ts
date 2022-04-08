@@ -8,8 +8,8 @@ import R from "ramda";
 const main = async () => {
   console.log("\n\n 📡 Deploying...\n");
 
-  const yourContract = await deploy("Greeter", ["this is my greeting"]); // <-- add in constructor args like line 16 vvvv
-  const SkaleStub = await deploy("SkaleStub", ["testing skale mint", "TEST"]);
+  // const yourContract = await deploy("Greeter", ["this is my greeting"]); // <-- add in constructor args like line 16 vvvv
+  // const SkaleStub = await deploy("SkaleStub", ["testing skale mint", "TEST"]);
   const SkaleStubFactory = await deploy("SkaleStubFactory", []);
 
   console.log(

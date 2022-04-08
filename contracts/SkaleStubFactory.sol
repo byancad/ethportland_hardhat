@@ -31,4 +31,15 @@ contract SkaleStubFactory {
     function getStubAddress(uint256 stubId) public view returns (address) {
         return stubs[stubId];
     }
+
+    function getRandom() public view returns (bytes32 addr) {
+        assembly {
+            let freemem := mload(0x40)
+            let start_addr := add(freemem, 0)
+            if iszero(staticcall(gas(), 0x18, 0, 0, start_addr, 32)) {
+                invalid()
+            }
+            addr := mload(freemem)
+        }
+    }
 }
