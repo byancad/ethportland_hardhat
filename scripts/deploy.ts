@@ -9,6 +9,7 @@ const main = async () => {
   console.log("\n\n 📡 Deploying...\n");
 
   const yourContract = await deploy("Greeter", ["this is my greeting"]); // <-- add in constructor args like line 16 vvvv
+  const SkaleStub = await deploy("SkaleStub", ["testing skale mint", "TEST"]);
 
   // const exampleToken = await deploy("ExampleToken")
   // const examplePriceOracle = await deploy("ExamplePriceOracle")
