@@ -8,21 +8,32 @@ contract SkaleStubFactory {
     uint256 public stubCount;
     mapping(uint256 => address) public stubs;
 
-    event LogStubCreated(uint256 newStubId, string name, string symbol);
+    event LogStubCreated(uint256 newStubId, string name);
 
     constructor() {
         owner = msg.sender;
         stubCount = 0;
     }
 
-    function createStub(string memory _name, string memory _symbol)
-        public
-        returns (uint256)
-    {
-        SkaleStub newSkaleStub = new SkaleStub(_name, _symbol);
+    function createStub(
+        string memory _name,
+        string memory _artist,
+        string memory _date,
+        string memory _location,
+        uint256 _quantity,
+        uint256 _creatorResellShare
+    ) public returns (uint256) {
+        SkaleStub newSkaleStub = new SkaleStub(
+            _name,
+            _artist,
+            _date,
+            _location,
+            _quantity,
+            _creatorResellShare
+        );
         uint256 newStubId = stubCount;
         stubs[newStubId] = address(newSkaleStub);
-        emit LogStubCreated(newStubId, _name, _symbol);
+        emit LogStubCreated(newStubId, _name);
         stubCount++;
 
         return newStubId;
