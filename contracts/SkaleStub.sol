@@ -8,8 +8,9 @@ contract SkaleStub is ERC721URIStorage {
     string public artist;
     string public date;
     string public location;
-    uint256 creatorResellShare;
+    uint256 public creatorResellShare;
     mapping(uint256 => bool) used;
+    uint256 public usedCount;
 
     constructor(
         string memory _name,
@@ -24,6 +25,7 @@ contract SkaleStub is ERC721URIStorage {
         location = _location;
         maxMint = _quantity;
         creatorResellShare = __creatorResellShare;
+        usedCount = 0;
     }
 
     /**
@@ -49,6 +51,38 @@ contract SkaleStub is ERC721URIStorage {
             ERC721.ownerOf(_tokenId) == msg.sender,
             "ERC721: caller is not owner!"
         );
+        usedCount++;
         used[_tokenId] = true;
+    }
+
+    function details()
+        public
+        view
+        returns (
+            string memory eventName,
+            string memory eventArtist,
+            string memory eventDate,
+            string memory eventLocation,
+            uint256 eventMaxMint,
+            uint256 eventCreatorResellShare,
+            uint256 eventUsedCount
+        )
+    {
+        eventName = this.name();
+        eventArtist = this.artist();
+        eventDate = this.date();
+        eventLocation = this.location();
+        eventMaxMint = this.maxMint();
+        eventCreatorResellShare = this.creatorResellShare();
+        eventUsedCount = this.usedCount();
+        return (
+            eventName,
+            eventArtist,
+            eventDate,
+            eventLocation,
+            eventMaxMint,
+            eventCreatorResellShare,
+            eventUsedCount
+        );
     }
 }
