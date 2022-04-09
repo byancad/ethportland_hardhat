@@ -1,6 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts/utils/Strings.sol";
 import "./SkaleStub.sol";
 
 contract SkaleStubFactory {
@@ -8,6 +9,7 @@ contract SkaleStubFactory {
     uint256 public stubCount;
     mapping(uint256 => address) public stubs;
     mapping(address => uint256) public stubsAddresses;
+    mapping(address => SkaleStub) public stubMap;
 
     event LogStubCreated(uint256 newStubId, string name);
 
@@ -39,6 +41,7 @@ contract SkaleStubFactory {
 
         stubs[newStubId] = address(newSkaleStub);
         stubsAddresses[address(newSkaleStub)] = newStubId;
+        stubMap[address(newSkaleStub)] = newSkaleStub;
         emit LogStubCreated(newStubId, _name);
         stubCount++;
 
@@ -62,5 +65,10 @@ contract SkaleStubFactory {
             }
             addr := mload(freemem)
         }
+    }
+
+    function removeListing(address _tokenAddress, uint256 _tokenId) public {
+        SkaleStub stub = stubMap[_tokenAddress];
+        stub.transfer(address(this), msg.sender, _tokenId);
     }
 }

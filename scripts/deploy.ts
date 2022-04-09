@@ -8,6 +8,12 @@ import R from "ramda";
 const main = async () => {
   console.log("\n\n 📡 Deploying...\n");
 
+  await deploy("StubListing", [
+    0,
+    0,
+    "0xE75906b48ed2C33e06BF6673340e0FdF20AAbb82",
+  ]);
+
   await deploy("SkaleStub", [
     "event name",
     "artist name",
@@ -18,6 +24,7 @@ const main = async () => {
     0,
     100,
   ]);
+
   await deploy("SkaleStubFactory", []);
 
   console.log(
