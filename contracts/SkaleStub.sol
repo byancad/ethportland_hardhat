@@ -51,11 +51,13 @@ contract SkaleStub is ERC721URIStorage {
         super._burn(tokenId);
     }
 
-    function admitOne(uint256 _tokenId) internal virtual {
+    function admitOne(uint256 _tokenId) public virtual {
         require(
             ERC721.ownerOf(_tokenId) == msg.sender,
             "ERC721: caller is not owner!"
         );
+
+        require(used[_tokenId] == false, "ERC721: Ticket already used!");
         usedCount++;
         used[_tokenId] = true;
     }
