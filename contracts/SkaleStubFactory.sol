@@ -7,6 +7,7 @@ contract SkaleStubFactory {
     address public owner;
     uint256 public stubCount;
     mapping(uint256 => address) public stubs;
+    mapping(address => uint256) public stubsAddresses;
 
     event LogStubCreated(uint256 newStubId, string name);
 
@@ -21,18 +22,23 @@ contract SkaleStubFactory {
         string memory _date,
         string memory _location,
         uint256 _quantity,
-        uint256 _creatorResellShare
+        uint256 _creatorResellShare,
+        uint256 _amount
     ) public returns (uint256) {
+        uint256 newStubId = stubCount;
         SkaleStub newSkaleStub = new SkaleStub(
             _name,
             _artist,
             _date,
             _location,
             _quantity,
-            _creatorResellShare
+            _creatorResellShare,
+            newStubId,
+            _amount
         );
-        uint256 newStubId = stubCount;
+
         stubs[newStubId] = address(newSkaleStub);
+        stubsAddresses[address(newSkaleStub)] = newStubId;
         emit LogStubCreated(newStubId, _name);
         stubCount++;
 
@@ -41,6 +47,10 @@ contract SkaleStubFactory {
 
     function getStubAddress(uint256 stubId) public view returns (address) {
         return stubs[stubId];
+    }
+
+    function getStubId(address stubAddress) public view returns (uint256) {
+        return stubsAddresses[stubAddress];
     }
 
     function getRandom() public view returns (bytes32 addr) {

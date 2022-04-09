@@ -12,6 +12,8 @@ contract SkaleStub is ERC721URIStorage {
     mapping(uint256 => bool) used;
     uint256 public usedCount;
     uint256 public mintedCount;
+    uint256 public id;
+    uint256 public amount;
 
     constructor(
         string memory _name,
@@ -19,7 +21,9 @@ contract SkaleStub is ERC721URIStorage {
         string memory _date,
         string memory _location,
         uint256 _quantity,
-        uint256 __creatorResellShare
+        uint256 __creatorResellShare,
+        uint256 _newStubId,
+        uint256 _amount
     ) ERC721(_name, "STUB") {
         artist = _artist;
         date = _date;
@@ -28,6 +32,8 @@ contract SkaleStub is ERC721URIStorage {
         creatorResellShare = __creatorResellShare;
         usedCount = 0;
         mintedCount = 0;
+        id = _newStubId;
+        amount = _amount;
     }
 
     /**
@@ -65,7 +71,10 @@ contract SkaleStub is ERC721URIStorage {
             uint256 eventMaxMint,
             uint256 eventCreatorResellShare,
             uint256 eventUsedCount,
-            uint256 eventMintedCount
+            uint256 eventMintedCount,
+            uint256 eventId,
+            address eventAddress,
+            uint256 eventAmount
         )
     {
         eventName = this.name();
@@ -76,6 +85,9 @@ contract SkaleStub is ERC721URIStorage {
         eventCreatorResellShare = this.creatorResellShare();
         eventUsedCount = this.usedCount();
         eventMintedCount = this.mintedCount();
+        eventId = this.id();
+        eventAddress = address(this);
+        eventAmount = this.amount();
         return (
             eventName,
             eventArtist,
@@ -84,7 +96,10 @@ contract SkaleStub is ERC721URIStorage {
             eventMaxMint,
             eventCreatorResellShare,
             eventUsedCount,
-            eventMintedCount
+            eventMintedCount,
+            eventId,
+            eventAddress,
+            eventAmount
         );
     }
 }
