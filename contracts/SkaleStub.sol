@@ -11,6 +11,7 @@ contract SkaleStub is ERC721URIStorage {
     uint256 public creatorResellShare;
     mapping(uint256 => bool) used;
     uint256 public usedCount;
+    uint256 public mintedCount;
 
     constructor(
         string memory _name,
@@ -26,20 +27,18 @@ contract SkaleStub is ERC721URIStorage {
         maxMint = _quantity;
         creatorResellShare = __creatorResellShare;
         usedCount = 0;
+        mintedCount = 0;
     }
 
     /**
      * Custom accessor to create a unique token
      */
-    function mint(
-        address _to,
-        uint256 _tokenId,
-        string memory _tokenURI
-    ) public {
-        require(_tokenId < maxMint, "Sold out!");
-        super._mint(_to, _tokenId);
-        super._setTokenURI(_tokenId, _tokenURI);
-        used[_tokenId] = false;
+    function mint(address _to, string memory _tokenURI) public {
+        require(mintedCount < maxMint, "Sold out!");
+        super._mint(_to, mintedCount);
+        super._setTokenURI(mintedCount, _tokenURI);
+        used[mintedCount] = false;
+        mintedCount++;
     }
 
     function _burn(uint256 tokenId) internal virtual override {
@@ -65,7 +64,8 @@ contract SkaleStub is ERC721URIStorage {
             string memory eventLocation,
             uint256 eventMaxMint,
             uint256 eventCreatorResellShare,
-            uint256 eventUsedCount
+            uint256 eventUsedCount,
+            uint256 eventMintedCount
         )
     {
         eventName = this.name();
@@ -75,6 +75,7 @@ contract SkaleStub is ERC721URIStorage {
         eventMaxMint = this.maxMint();
         eventCreatorResellShare = this.creatorResellShare();
         eventUsedCount = this.usedCount();
+        eventMintedCount = this.mintedCount();
         return (
             eventName,
             eventArtist,
@@ -82,7 +83,8 @@ contract SkaleStub is ERC721URIStorage {
             eventLocation,
             eventMaxMint,
             eventCreatorResellShare,
-            eventUsedCount
+            eventUsedCount,
+            eventMintedCount
         );
     }
 }

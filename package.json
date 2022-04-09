@@ -11,7 +11,8 @@
     "deploy:publish": "npx hardhat run scripts/deploy.ts --network localhost && npx hardhat run scripts/publish.ts",
     "watch": "npx hardhat run scripts/watch.ts",
     "deploy:rinkeby": "npx hardhat run scripts/deploy.ts --network rinkeby",
-    "deploy:skale": "npx hardhat run scripts/deploy.ts --network skale"
+    "deploy:skale": "npx hardhat run scripts/deploy.ts --network skale",
+    "deploy:harmony": "npx hardhat run scripts/deploy.ts --network harmony"
   },
   "author": "",
   "license": "ISC",

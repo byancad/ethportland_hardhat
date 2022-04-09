@@ -57,6 +57,10 @@ const config: HardhatUserConfig = {
       url: process.env.SKALE_URL,
       accounts: [process.env.BURNER_WALLET_PRIVATE_KEY || ""],
     },
+    harmony: {
+      url: "https://api.s0.b.hmny.io",
+      accounts: [process.env.BURNER_WALLET_PRIVATE_KEY || ""],
+    },
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
